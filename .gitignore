@@ -1,2 +1,8 @@
-# IntelliJ configuration file
+# IntelliJ files
 /.idea
+/out
+*.iml
+/**/build/
+
+# Gradle files
+/.gradle
