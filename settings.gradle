@@ -1,0 +1,3 @@
+rootProject.name = 'agar-game'
+
+include 'agar-api', 'agar-server', 'agar-ui-model' ,'agar-html5-client'

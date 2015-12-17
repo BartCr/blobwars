@@ -1,0 +1,10 @@
+group 'be.cremers.agar-game'
+version '1.0-SNAPSHOT'
+
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
