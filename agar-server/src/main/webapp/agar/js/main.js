@@ -1,5 +1,6 @@
 var GRID_SIZE = 100;
 var SPEED = 3;
+var KEY_CODE_SPACE = 32;
 
 var stage, label, credits, mouseX, mouseY;
 var circle, triangle;
@@ -10,6 +11,7 @@ var bullets;
 var hLineNr, vLineNr;
 var hLines, vLines;
 
+var spaceDown = false;
 var mouseDown = false;
 var mouseDownCounter = 0;
 
@@ -53,6 +55,22 @@ function resize() {
     stage.addChild(circle, label, credits);
 }
 
+function keyPressed(event) {
+    switch(event.keyCode) {
+        case KEY_CODE_SPACE:
+            spaceDown = true;
+            break;
+    }
+}
+
+function keyReleased(event) {
+    switch(event.keyCode) {
+        case KEY_CODE_SPACE:
+            spaceDown = false;
+            break;
+    }
+}
+
 function init() {
     stage = new createjs.Stage("gameCanvas");
     stage.mouseEventsEnabled = true;
@@ -84,6 +102,9 @@ function init() {
         mouseDown = false;
     });
 
+    document.onkeydown = keyPressed;
+    document.onkeyup = keyReleased;
+
     bullets = [];
 
     createjs.Ticker.framerate = 50;
@@ -99,7 +120,7 @@ function init() {
 
             // Update vertical lines
             if (Math.abs(mouseOffsetX) > 5) {
-                var xDif = -Math.sin(angle * Math.PI / 180) * SPEED;
+                var xDif = -Math.sin(angle * Math.PI / 180) * (SPEED * (spaceDown ? 4 : 1));
                 xOffset += xDif;
                 if (xOffset > GRID_SIZE) {
                     xDif -= GRID_SIZE;
@@ -116,7 +137,7 @@ function init() {
 
             // Update horizontal lines
             if (Math.abs(mouseOffsetY) > 5) {
-                var yDif = Math.cos(angle * Math.PI / 180) * SPEED;
+                var yDif = Math.cos(angle * Math.PI / 180) * (SPEED * (spaceDown ? 4 : 1));
                 yOffset += yDif;
                 if (yOffset > GRID_SIZE) {
                     yDif -= GRID_SIZE;
